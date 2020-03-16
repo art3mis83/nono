@@ -45,4 +45,4 @@ bot.on('ready', function () {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-bot.login('Njg4NzU2NTI5ODY3OTE1MjY0.Xm5DOA.Vkb5W3oNFFU-xcJ2dz69_CSRsbo')
+bot.login(process.env.BOT_TOKEN)
