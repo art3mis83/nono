@@ -80,15 +80,18 @@ bot.on('ready', function () {
 
         }
 
-        if(myMessage.indexOf('APPREND : ') == 0){
-          learn.push(myMessage.substring(10, myMessage.length - 1));
+        if(myMessage.indexOf('APPRENDS : ') == 0){
+          learn.push(myMessage.toLowerCase().substring(10, myMessage.length));
           message.channel.send("Je vais y réfléchir ... est-ce bien une bonne idée ?");
 
         }
 
         if(myMessage.indexOf('LEÇONS') == 0){
-          message.channel.send("Voici les leçons que je dois étudier :\n" + learn.join('\n'));
-
+          if(learn.length == 0){
+            message.channel.send("Rien à apprendre pour le moment :(");
+          }else{
+            message.channel.send("Voici les leçons que je dois étudier :\n" + learn.join('\n'));
+          }
         }
 
         if(myMessage.indexOf('!CLEAR_LEARN') == 0){
