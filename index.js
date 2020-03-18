@@ -65,7 +65,7 @@ bot.on('ready', function () {
             message.channel.send(responseArray[index]);
         }
 
-        if(myMessage == 'lexique'){
+        if(myMessage == 'LEXIQUE'){
           message.channel.send("Voilà les leçons que je connais pour le moment : \
           - bonjour (car il faut être poli)\
           - coucou (piou piou)\
