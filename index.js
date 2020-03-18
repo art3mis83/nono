@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
+var learn = [];
+
 bot.on('ready', function () {
     console.log("Je suis connecté !")
   })
@@ -66,14 +68,31 @@ bot.on('ready', function () {
         }
 
         if(myMessage == 'LEXIQUE'){
-          message.channel.send("Voilà les leçons que je connais pour le moment : \
-          - bonjour (car il faut être poli)\
-          - coucou (piou piou)\
-          - bonsoir (car il faut être poli le soir aussi)\
-          - ca va ? (le ? est important, sinon je ne peux pas deviner que c'est une question)\
-          - wesh (#Ocean)\
-          - ping (apporte ta raquette)");
+          message.channel.send("Voilà les leçons que je connais pour le moment : \n\
+          - bonjour (car il faut être poli)\n\
+          - coucou (piou piou)\n\
+          - bonsoir (car il faut être poli le soir aussi)\n\
+          - ca va ? (le ? est important, sinon je ne peux pas deviner que c'est une question)\n\
+          - wesh (#Ocean)\n\
+          - ping (apporte ta raquette)\n\
+          - essaye d'interpeller le podium des pipelettes\n\
+          - apprends : [une leçon] (pour me demander d'apprendre à dire bonjour il faut taper : apprends : bonjour)");
 
+        }
+
+        if(myMessage.indexOf('APPREND : ') == 0){
+          learn.push(myMessage.substring(10, myMessage.length - 1));
+          message.channel.send("Je vais y réfléchir ... est-ce bien une bonne idée ?");
+
+        }
+
+        if(myMessage.indexOf('LEÇONS') == 0){
+          message.channel.send("Voici les leçons que je dois étudier :\n" + learn.join('\n'));
+
+        }
+
+        if(myMessage.indexOf('!CLEAR_LEARN') == 0){
+          learn = [];
         }
     }  
     
