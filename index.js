@@ -17,6 +17,18 @@ bot.on('ready', function () {
             message.reply('pong !')
         }
       
+        if (myMessage.indexOf('NONO') != -1 ) {
+          var responseArray = ['C\'est bien mon nom',
+                    'Chante avec moi ! https://youtu.be/vxlNw-vz7l8?t=86',
+                    'Je suis Nono le bot Discord ! Ici c\'est moi le roi'];
+
+          message.channel.send(responseArray[getRandomInt(3)]); 
+        }
+
+        if (myMessage.indexOf('SALUT') == 0 ) {
+            message.channel.send('Salutation noble aventurier qui ose fouler le domaine de Nono');  
+        }
+
         if (myMessage.indexOf('BONJOUR') == 0 ) {
             message.channel.send('Bonjour ' + message.author.username)  
         }
@@ -29,9 +41,10 @@ bot.on('ready', function () {
           message.channel.send('Qui que tu sois, coucou à toi aussi !')  
         }
 
-        if (myMessage.indexOf('GRE') != -1 || myMessage.indexOf('GRENOUILLE') != -1  ) {
+
+        if (myMessage.indexOf('GRE ') != -1 || myMessage.indexOf('GRENOUILLE') != -1  ) {
           if(message.channel.name != "guerre--binomes"){
-            message.channel.send('!pokemon Froakie')  
+            message.channel.send(':grenouille:')  
           }
         }
 
@@ -52,7 +65,7 @@ bot.on('ready', function () {
                               'Utilise encore une seule fois ce terme et je mets en marche le trébuchet dans la cour pour t\'envoyer la dernière edition du Larousse en pleine poire',
                               'Bien ou quoi fraté ?'];
 
-            message.channel.send(responseArray[getRandomInt(2)]); 
+            message.channel.send(responseArray[getRandomInt(3)]); 
         }
     
         if (myMessage.indexOf('ÇA VA ?') == 0  ) {
@@ -70,12 +83,14 @@ bot.on('ready', function () {
         if(myMessage == 'LEXIQUE'){
           message.channel.send("Voilà les leçons que je connais pour le moment : \n\
           - bonjour (car il faut être poli)\n\
+          - salut (:wave:)\n\
           - coucou (piou piou)\n\
           - bonsoir (car il faut être poli le soir aussi)\n\
           - ca va ? (le ? est important, sinon je ne peux pas deviner que c'est une question)\n\
           - wesh (#Ocean)\n\
           - ping (apporte ta raquette)\n\
           - essaye d'interpeller le podium des pipelettes\n\
+          - je connais mon nom maintenant !\n\
           - apprends : [une leçon] (pour me demander d'apprendre à dire bonjour il faut taper : apprends : bonjour)");
 
         }
