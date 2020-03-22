@@ -44,7 +44,7 @@ bot.on('ready', function () {
 
         if (myMessage.indexOf('GRE ') != -1 || myMessage.indexOf('GRENOUILLE') != -1  ) {
           if(message.channel.name != "guerre--binomes"){
-            message.channel.send(':grenouille:')  
+            message.channel.send('<:grenouille:691305319665500200>')  
           }
         }
 
