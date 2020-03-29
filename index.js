@@ -1,5 +1,15 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const fs = require('fs');
+
+bot.commands = new Discord.Collection();
+
+const commandFiles = fs.readdirSync('./ressources/commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const command = require(`./ressources/commands/${file}`);
+	bot.commands.set(command.name, command);
+}
 
 var learn = [];
 
@@ -11,64 +21,112 @@ bot.on('ready', function () {
       /*console.log("message recu " + message.content.toUpperCase());
       console.log("message recu " + message.content.toUpperCase().indexOf('BONJOUR'));
       console.log(message.author.username);*/
-    if(message.author.username !=="Nono"){
-        var myMessage = message.content.toUpperCase();
-        if (message.content === 'ping') {
-            message.reply('pong !')
-        }
       
-        if (myMessage.indexOf('NONO') != -1 ) {
+    if(!message.author.bot){
+      
+        var myMessage = message.content.toUpperCase();
+
+        var command = bot.commands.find(cmd => cmd.precheck(myMessage));
+        //console.log(JSON.stringify(command));
+        if(!command){
+          return;
+        }
+          
+        let args = null;
+        if(command.args){
+          args = myMessage.split(' ').slice(1).join(' ');
+          if(!args){
+            message.reply('Dans mes bouquins on ne m\'a pas appris comme ça\nSi jamais ça peut t\'aider :\n' + command.description);
+            return;
+          }
+        }
+
+        try {
+          command.execute(message, args);
+        } catch (error) {
+          console.error(error);
+          message.reply('Oups, je me suis emmeler les pinceaux je crois !');
+        }
+        
+
+
+
+/*
+        var messageArray = myMessage.split(' ');
+        
+
+        const commandName = messageArray[0];
+        const command = bot.commands.get(commandName)
+		      || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+        const exclusion = bot.commands.find(cmd => cmd.exception && cmd.exception.includes(message.channel.name));
+        
+	      if (!command || !!exclusion) return;
+        
+        
+
+        try {
+          command.execute(message, args);
+        } catch (error) {
+          console.error(error);
+          message.reply('there was an error trying to execute that command!');
+        }*/
+        /*if (message.content === 'ping') {
+            message.reply('pong !')
+        }*/
+      
+        /*if (myMessage.indexOf('NONO') != -1 ) {
           var responseArray = ['C\'est bien mon nom',
                     'Chante avec moi ! https://youtu.be/vxlNw-vz7l8?t=86',
                     'Je suis Nono le bot Discord ! Ici c\'est moi le roi'];
 
           message.channel.send(responseArray[getRandomInt(3)]); 
-        }
+        }*/
 
-        if (myMessage.indexOf('SALUT') == 0 ) {
+        /*if (myMessage.indexOf('SALUT') == 0 ) {
             message.channel.send('Salutation noble aventurier qui ose fouler le domaine de Nono');  
-        }
+        }*/
 
-        if (myMessage.indexOf('BONJOUR') == 0 ) {
+        /*if (myMessage.indexOf('BONJOUR') == 0 ) {
             message.channel.send('Bonjour ' + message.author.username)  
-        }
+        }*/
 
-        if (myMessage.indexOf('BONSOIR') == 0  ) {
+        /*if (myMessage.indexOf('BONSOIR') == 0  ) {
             message.channel.send('Bonsoir ' + message.author.username)  
-        }
+        }*/
 
-        if (myMessage.indexOf('COUCOU') == 0  ) {
+        /*if (myMessage.indexOf('COUCOU') == 0  ) {
           message.channel.send('Qui que tu sois, coucou à toi aussi !')  
-        }
+        }*/
 
 
-        if (myMessage.indexOf('GRE ') != -1 || myMessage.indexOf('GRENOUILLE') != -1  ) {
+        /*if (myMessage.indexOf('GRE ') != -1 || myMessage.indexOf('GRENOUILLE') != -1  ) {
           if(message.channel.name != "guerre--binomes"){
             message.channel.send('<:grenouille:691305319665500200>')  
           }
-        }
+        }*/
 
-        if (myMessage.indexOf('OCEAN') != -1 ) {
+        /*if (myMessage.indexOf('OCEAN') != -1 ) {
           if(message.channel.name != "guerre--binomes"){
             message.channel.send(':fries: :man_student:')  
           }
-        }
+        }*/
 
-        if (myMessage.indexOf('STEF') != -1 ) {
+        /*if (myMessage.indexOf('STEF') != -1 ) {
           if(message.channel.name != "guerre--binomes"){
             message.channel.send(':baby:')  
           }
-        }
+        }*/
 
-        if (myMessage.indexOf('WESH') >= 0  ) {
+        /*if (myMessage.indexOf('WESH') >= 0  ) {
           var responseArray = ['Wesh gros : https://www.youtube.com/watch?v=X6MxGJ7qxck',
                               'Utilise encore une seule fois ce terme et je mets en marche le trébuchet dans la cour pour t\'envoyer la dernière edition du Larousse en pleine poire',
                               'Bien ou quoi fraté ?'];
 
             message.channel.send(responseArray[getRandomInt(3)]); 
-        }
+        }*/
     
-        if (myMessage.indexOf('ÇA VA ?') == 0  ) {
+        /*if (myMessage.indexOf('ÇA VA ?') == 0  ) {
             var responseArray = ['Je suis connecté',
                                     'Oui et toi ?',
                                     "Oui .... j'espère que tu as un aussi bon anti virus que moi",
@@ -78,9 +136,9 @@ bot.on('ready', function () {
                      
             var index = getRandomInt(5);
             message.channel.send(responseArray[index]);
-        }
+        }*/
 
-        if(myMessage == 'LEXIQUE'){
+        /*if(myMessage == 'LEXIQUE'){
           message.channel.send("Voilà les leçons que je connais pour le moment : \n\
           - bonjour (car il faut être poli)\n\
           - salut (:wave:)\n\
@@ -93,25 +151,25 @@ bot.on('ready', function () {
           - je connais mon nom maintenant !\n\
           - apprends : [une leçon] (pour me demander d'apprendre à dire bonjour il faut taper : apprends : bonjour)");
 
-        }
+        }*/
 
-        if(myMessage.indexOf('APPRENDS : ') == 0){
+        /*if(myMessage.indexOf('APPRENDS : ') == 0){
           learn.push(myMessage.toLowerCase().substring(10, myMessage.length));
           message.channel.send("Je vais y réfléchir ... est-ce bien une bonne idée ?");
 
-        }
+        }*/
 
-        if(myMessage.indexOf('LEÇONS') == 0){
+        /*if(myMessage.indexOf('LEÇONS') == 0){
           if(learn.length == 0){
             message.channel.send("Rien à apprendre pour le moment :(");
           }else{
             message.channel.send("Voici les leçons que je dois étudier :\n" + learn.join('\n'));
           }
-        }
+        }*/
 
-        if(myMessage.indexOf('!CLEAR_LEARN') == 0){
+        /*if(myMessage.indexOf('!CLEAR_LEARN') == 0){
           learn = [];
-        }
+        }*/
     }  
     
   })
