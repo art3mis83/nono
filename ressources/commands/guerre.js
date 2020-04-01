@@ -20,6 +20,6 @@ Des compétences qui font de moi un véritable cauchemar pour vous. Si vous rel�
 je vous chercherai, je vous trouverai et je vous tuerai.",
 							"@Ocean, formation tortue !"];
 
-        message.channel.send(responseArray[getRandomInt(5)]); 
+        message.channel.send(responseArray[getRandomInt(responseArray.length)]); 
 	},
 };
