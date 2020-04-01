@@ -1,3 +1,7 @@
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
 module.exports = {
 	name: 'NONO',
     description: 'je connais mon nom maintenant !',
